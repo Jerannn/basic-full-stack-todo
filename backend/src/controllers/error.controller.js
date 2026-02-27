@@ -36,7 +36,6 @@ export default function errorController(err, req, res, next) {
   err.status = err.status || "error";
 
   if (nodeEnv === "development") {
-    if (err.code === "23505") handelUniqueError(err);
     sendErrorDev(err, res);
   } else if (nodeEnv === "production") {
     let error = { ...err, message: err.message };

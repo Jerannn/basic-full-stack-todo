@@ -51,11 +51,11 @@ export const signup = catchAsync(async (req, res, next) => {
 export const signin = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
-  const user = await User.findByEmail(email);
-
-  if (!user) {
-    return next(new AppError("User not found!", 404));
+  if (!email || !password) {
+    return next(new AppError("Please provide email and password", 400));
   }
+
+  const user = await User.findByEmail(email);
 
   if (!user || !(await User.verifyPassword(password, user.password))) {
     return next(new AppError("Incorrect email and password", 400));
@@ -64,9 +64,9 @@ export const signin = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
-export const protect = async (req, res, next) => {
+export const protect = catchAsync(async (req, res, next) => {
   let token;
-  console.log(req.cookies);
+
   if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
@@ -94,7 +94,7 @@ export const protect = async (req, res, next) => {
 
   req.user = currentUser;
   next();
-};
+});
 
 export const getMe = catchAsync(async (req, res, next) => {
   res.status(200).json({

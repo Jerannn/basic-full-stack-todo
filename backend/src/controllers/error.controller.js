@@ -1,3 +1,12 @@
+import AppError from "../utils/appError.js";
+
+const handelUniqueError = (err) => {
+  const field = err.constraint.split("_")[1];
+  const message = `This ${field} already exists`;
+
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode || 500).json({
     status: err.status || "error",
@@ -27,10 +36,11 @@ export default function errorController(err, req, res, next) {
   err.status = err.status || "error";
 
   if (nodeEnv === "development") {
-    console.log("Error: ", err);
     sendErrorDev(err, res);
   } else if (nodeEnv === "production") {
     let error = { ...err, message: err.message };
+
+    if (err.code === "23505") error = handelUniqueError(err);
     sendErrorProd(error, res);
   }
 }

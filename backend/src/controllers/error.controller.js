@@ -1,8 +1,8 @@
 import AppError from "../utils/appError.js";
 
 const handelUniqueError = (err) => {
-  const field = err.constraint.split("_")[1];
-  const message = `This ${field} already exists`;
+  const field = err.constraint?.split("_") || [];
+  const message = `This ${field[1] || "field"} already exists`;
 
   return new AppError(message, 400);
 };

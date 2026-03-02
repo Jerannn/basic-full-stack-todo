@@ -20,6 +20,8 @@ const app = express();
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
+// FRONTEND_ORIGIN: process.env.FRONTEND_ORIGIN || "http://localhost:5173",
 app.use(
   cors({
     origin: "http://localhost:5173",

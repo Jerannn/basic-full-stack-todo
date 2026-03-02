@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  checkAuth,
   getMe,
   protect,
   signin,
@@ -13,4 +14,5 @@ router.post("/signup", signup);
 router.post("/signin", signin);
 
 router.get("/me", protect, getMe);
+router.get("/check-auth", protect, checkAuth);
 export default router;

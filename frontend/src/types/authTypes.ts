@@ -3,8 +3,12 @@ export interface SigninForm {
   password: string;
 }
 
+export interface SignupForm extends SigninForm {
+  name: string;
+}
+
 export type User = {
-  id: string;
+  readonly id: string;
   name: string;
   email: string;
   created_at: Date | string;

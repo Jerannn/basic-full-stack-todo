@@ -96,6 +96,15 @@ export const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
+export const checkAuth = catchAsync(async (req, res, next) => {
+  res.status(200).json({
+    status: "success",
+    data: {
+      user: req.user,
+    },
+  });
+});
+
 export const getMe = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",

@@ -7,8 +7,13 @@ import TaskSheet from "./TaskSheet";
 import { Plus } from "lucide-react";
 
 // shadcn ui
-import { Button } from "../../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { Button } from "../../../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../../components/ui/card";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 
 type TaskSectionProps = {

@@ -1,4 +1,4 @@
-import type { ApiErrorDevelopment } from "@/types/apiError";
+import type { ApiErrorDevelopment } from "@/types/api-types";
 import axios, { AxiosError } from "axios";
 
 const api = axios.create({
@@ -10,13 +10,16 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response.data,
   (error: AxiosError<ApiErrorDevelopment>) => {
-    let errMessage = "Something went wrong";
-    if (error && error.response?.status === 400) {
-      errMessage = error.response.data.message;
-    } else if (error && error.response?.status === 401) {
-      errMessage = error.response.data.message;
-    }
-    return Promise.reject(errMessage);
+    const status = error.response?.status;
+    const apiMessage = error.response?.data?.message;
+
+    const errMessage =
+      (status === 400 || status === 401 ? apiMessage : undefined) ??
+      apiMessage ??
+      error.message ??
+      "Something went wrong";
+
+    return Promise.reject(new Error(errMessage));
   },
 );
 

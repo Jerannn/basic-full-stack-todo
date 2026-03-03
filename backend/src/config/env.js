@@ -1,6 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config({ quiet: true });
 
+const FRONTEND_ORIGIN_URL =
+  process.env.FRONTEND_ORIGIN_URL ??
+  (process.env.NODE_ENV !== "production" ? "http://localhost:5173" : undefined);
+
+if (!FRONTEND_ORIGIN_URL) {
+  throw new Error("Missing required env: FRONTEND_ORIGIN_URL");
+}
+
 export const ENV = {
   PORT: process.env.PORT || 5000,
   NODE_ENV: process.env.NODE_ENV || "production",
@@ -12,4 +20,6 @@ export const ENV = {
 
   // Database
   DATABASE_URL: process.env.DATABASE_URL,
+
+  FRONTEND_ORIGIN_URL,
 };

@@ -11,16 +11,16 @@ import {
 } from "lucide-react";
 
 // shadcn ui
-import { Button } from "../../ui/button";
+import { Button } from "../../../components/ui/button";
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "../../ui/item";
-import { Checkbox } from "../../ui/checkbox";
-import { Sheet, SheetTrigger } from "../../ui/sheet";
+} from "../../../components/ui/item";
+import { Checkbox } from "../../../components/ui/checkbox";
+import { Sheet, SheetTrigger } from "../../../components/ui/sheet";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -76,21 +76,17 @@ export default function TaskItem({ task }: Props) {
                   </DropdownMenuItem>
                 </SheetTrigger>
 
-                <SheetTrigger asChild>
-                  <DropdownMenuItem>
-                    <ShareIcon />
-                    Share
-                  </DropdownMenuItem>
-                </SheetTrigger>
+                <DropdownMenuItem>
+                  <ShareIcon />
+                  Share
+                </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <SheetTrigger asChild>
-                  <DropdownMenuItem variant="destructive">
-                    <TrashIcon />
-                    Delete
-                  </DropdownMenuItem>
-                </SheetTrigger>
+                <DropdownMenuItem variant="destructive">
+                  <TrashIcon />
+                  Delete
+                </DropdownMenuItem>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -103,7 +99,7 @@ export default function TaskItem({ task }: Props) {
           {openSheet === "edit" && (
             <TaskSheet
               title="Update task"
-              description="Make changes to your profile here. Click save when you're done."
+              description="Make changes to your task here. Click save when you're done."
             >
               <p>{task.description}</p>
             </TaskSheet>

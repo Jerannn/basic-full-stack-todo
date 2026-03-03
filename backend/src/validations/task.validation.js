@@ -7,5 +7,12 @@ export const createTaskSchema = z.object({
   dueDate: z
     .string()
     .optional()
-    .transform((val) => (val ? new Date(val) : null)),
+    .transform((val) => {
+      if (!val) return null;
+      const date = new Date(val);
+      if (isNaN(date.getTime())) {
+        throw new Error("Invalid date format");
+      }
+      return date;
+    }),
 });

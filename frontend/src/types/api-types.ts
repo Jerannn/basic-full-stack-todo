@@ -13,3 +13,8 @@ export type ApiErrorProduction = {
   status: string;
   message: string;
 };
+
+export type ApiResponse<T> = {
+  status: "success" | "fail" | "error";
+  data: T;
+};

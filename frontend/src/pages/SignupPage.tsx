@@ -53,7 +53,7 @@ export default function SignupPage() {
         <CardHeader>
           <CardTitle>Sign up</CardTitle>
           <CardDescription>
-            Create new account below if you don&apos;t have
+            Create new account below if you don't have
           </CardDescription>
           <CardAction>
             <Link

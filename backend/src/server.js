@@ -12,6 +12,7 @@ import AppError from "./utils/appError.js";
 
 // Routes
 import authRoutes from "./routes/auth.routes.js";
+import taskRoutes from "./routes/task.routes.js";
 
 dotenv.config({ quiet: true });
 
@@ -24,7 +25,7 @@ if (process.env.NODE_ENV === "development") {
 // FRONTEND_ORIGIN: process.env.FRONTEND_ORIGIN || "http://localhost:5173",
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ENV.FRONTEND_ORIGIN_URL,
     credentials: true,
   }),
 );
@@ -33,6 +34,7 @@ app.use(cookieParser());
 app.use(helmet());
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/tasks", taskRoutes);
 
 app.all(/.*/, (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

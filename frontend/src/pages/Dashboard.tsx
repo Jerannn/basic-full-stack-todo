@@ -1,4 +1,4 @@
-import TaskSection from "@/components/dashboard/task/TaskSection";
+import TaskSection from "@/features/tasks/components/TaskSection";
 
 const data = [
   {
@@ -22,7 +22,7 @@ export default function Dashboard() {
       <TaskSection data={data} title="Today" />
 
       <div className="flex gap-3">
-        <TaskSection data={data} title="Tommorow" />
+        <TaskSection data={data} title="Tomorrow" />
         <TaskSection data={data} title="This Week" />
       </div>
     </div>

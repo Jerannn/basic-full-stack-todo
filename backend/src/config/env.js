@@ -12,4 +12,6 @@ export const ENV = {
 
   // Database
   DATABASE_URL: process.env.DATABASE_URL,
+
+  FRONTEND_ORIGIN_URL: process.env.FRONTEND_ORIGIN_URL,
 };

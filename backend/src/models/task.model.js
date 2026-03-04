@@ -12,34 +12,34 @@ export default class Task {
     return result.rows[0];
   }
 
-  static async getTodayTasks(userId) {
+  static async getTodayTasks(userId, startDate, endDate) {
     const result = await db.query(
       `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
-      WHERE user_id = $1 AND due_date::date = CURRENT_DATE
+      WHERE user_id = $1 AND due_date >= $2 AND due_date < $3
       ORDER BY created_at DESC`,
-      [userId],
+      [userId, startDate, endDate],
     );
 
     return result.rows;
   }
 
-  static async getTomorrowTasks(userId) {
+  static async getTomorrowTasks(userId, startDate, endDate) {
     const result = await db.query(
       `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
-      WHERE user_id = $1 AND due_date::date = CURRENT_DATE + 1
+      WHERE user_id = $1 AND due_date >= $2 AND due_date < $3
       ORDER BY created_at DESC`,
-      [userId],
+      [userId, startDate, endDate],
     );
 
     return result.rows;
   }
 
-  static async getWeekTasks(userId) {
+  static async getWeekTasks(userId, start, end) {
     const result = await db.query(
       `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
-      WHERE user_id = $1 AND due_date::date BETWEEN CURRENT_DATE AND CURRENT_DATE + 7
+      WHERE user_id = $1 AND due_date >= $2 AND due_date <= $3
       ORDER BY created_at DESC`,
-      [userId],
+      [userId, start, end],
     );
 
     return result.rows;

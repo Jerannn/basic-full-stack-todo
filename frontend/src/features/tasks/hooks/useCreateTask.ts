@@ -14,7 +14,7 @@ export default function useCreateTask() {
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (query) =>
-          ["tasks-today", "tasks-tomorrow"].includes(
+          ["tasks-today", "tasks-tomorrow", "tasks-week"].includes(
             query.queryKey[0] as string,
           ),
       });

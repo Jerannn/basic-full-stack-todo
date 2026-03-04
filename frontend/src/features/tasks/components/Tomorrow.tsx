@@ -5,7 +5,7 @@ export default function Tomorrow() {
   const { tasks, isLoading, isError } = useTomorrowTasks();
   return (
     <TaskCard
-      data={tasks?.slice(0, 5) || []}
+      data={tasks || []}
       isLoading={isLoading}
       isError={isError}
       title="Tomorrow"

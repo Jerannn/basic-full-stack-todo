@@ -5,7 +5,7 @@ export default function Week() {
   const { tasks, isLoading, isError } = useWeekTasks();
   return (
     <TaskCard
-      data={tasks?.slice(0, 5) || []}
+      data={tasks || []}
       isLoading={isLoading}
       isError={isError}
       title="Week"

@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { SheetClose, SheetFooter } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
-import type { CreateTaskInput, Task } from "../types";
+import type { CreateTaskInput } from "../types";
 import useCreateTask from "../hooks/useCreateTask";
 
 export default function AddTask() {
@@ -37,6 +37,7 @@ export default function AddTask() {
   } = useForm<CreateTaskInput>();
 
   const onSubmit = async (data: CreateTaskInput) => {
+    console.log(data);
     const result = await mutateAsync(data);
     if (result.status === "success") {
       reset();
@@ -87,7 +88,7 @@ export default function AddTask() {
               </FieldLabel>
               <Input
                 {...register("dueDate")}
-                type="date"
+                type="datetime-local"
                 id="dueDate"
                 min={new Date().toISOString().split("T")[0]}
               />

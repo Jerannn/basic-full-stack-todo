@@ -3,6 +3,7 @@ import { useState } from "react";
 
 // icons
 import {
+  CalendarX,
   EllipsisVertical,
   PencilIcon,
   ShareIcon,
@@ -16,7 +17,7 @@ import {
   Item,
   ItemActions,
   ItemContent,
-  ItemDescription,
+  ItemGroup,
   ItemTitle,
 } from "../../../components/ui/item";
 import { Checkbox } from "../../../components/ui/checkbox";
@@ -30,25 +31,38 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import TaskSheet from "./TaskSheet";
+import { formatToYMD } from "@/lib/utils";
+import { Separator } from "@/components/ui/separator";
+import type { Task } from "../types";
 
-type Props = {
-  task: any;
+type TaskItemProps = {
+  task: Task;
 };
 
-export default function TaskItem({ task }: Props) {
+export default function TaskItem({ task }: TaskItemProps) {
   const [openSheet, setOpenSheet] = useState("");
   return (
     <Item
       variant="outline"
-      className="border-gray-100 border-l-0 border-r-0 border-b-0 rounded-none py-1"
+      className="border-gray-100 border-l-0 border-r-0 border-b-0 rounded-none"
     >
       <ItemActions>
         <Checkbox />
       </ItemActions>
 
-      <ItemContent>
-        <ItemTitle>{task.title}</ItemTitle>
-        <ItemDescription>{task.description}</ItemDescription>
+      <ItemContent className="gap-2">
+        <ItemTitle className="text-base line-clamp-1">{task.title}</ItemTitle>
+        <ItemGroup className="flex-row gap-2 h-4">
+          <ItemGroup className="flex-row items-center gap-1">
+            <CalendarX size={17} />
+            <span className="text-xs">{formatToYMD(task.due_date)}</span>
+          </ItemGroup>
+          <Separator orientation="vertical" />
+          <ItemGroup className="flex-row items-center gap-1">
+            <span className="block bg-red-800 w-3 h-3 rounded-[3px]"></span>
+            <span className="text-xs">{task.category}</span>
+          </ItemGroup>
+        </ItemGroup>
       </ItemContent>
 
       <ItemActions>

@@ -11,13 +11,46 @@ export const createTask = catchAsync(async (req, res, next) => {
   }
 
   const newTask = await Task.create(
-    Object.assign(result.data, { user_id: req.user.id }),
+    Object.assign(result.data, { userId: req.user.id }),
   );
 
   res.status(201).json({
     status: "success",
     data: {
       task: newTask,
+    },
+  });
+});
+
+export const getTodayTasks = catchAsync(async (req, res, next) => {
+  const tasks = await Task.getTodayTasks(req.user.id);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      tasks,
+    },
+  });
+});
+
+export const getTomorrowTasks = catchAsync(async (req, res, next) => {
+  const tasks = await Task.getTomorrowTasks(req.user.id);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      tasks,
+    },
+  });
+});
+
+export const getWeekTasks = catchAsync(async (req, res, next) => {
+  const tasks = await Task.getWeekTasks(req.user.id);
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      tasks,
     },
   });
 });

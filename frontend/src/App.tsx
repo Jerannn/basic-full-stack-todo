@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import SigninPage from "./pages/SigninPage";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/DashboardPage";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import PublicRoutes from "./routes/PublicRoutes";
 import AppLayout from "./components/layout/AppLayout";
@@ -9,6 +9,9 @@ import useAuthStore from "./stores/authStore";
 import { Toaster } from "sonner";
 import SignupPage from "./pages/SignupPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import TodayPage from "./pages/TodayPage";
+import TomorrowPage from "./pages/TomorrowPage";
+import WeekPage from "./pages/WeekPage";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +35,9 @@ function App() {
           >
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/today" element={<TodayPage />} />
+            <Route path="/tomorrow" element={<TomorrowPage />} />
+            <Route path="/week" element={<WeekPage />} />
           </Route>
 
           <Route element={<PublicRoutes />}>

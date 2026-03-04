@@ -7,3 +7,21 @@ export const createTask = async (
 ): Promise<ApiResponse<{ task: Task }>> => {
   return api.post("/tasks", formdata);
 };
+
+export const getTodayTasks = async (): Promise<
+  ApiResponse<{ tasks: Task[] }>
+> => {
+  return api.get("/tasks/today");
+};
+
+export const getTomorrowTasks = async (): Promise<
+  ApiResponse<{ tasks: Task[] }>
+> => {
+  return api.get("/tasks/tomorrow");
+};
+
+export const getWeekTasks = async (): Promise<
+  ApiResponse<{ tasks: Task[] }>
+> => {
+  return api.get("/tasks/week");
+};

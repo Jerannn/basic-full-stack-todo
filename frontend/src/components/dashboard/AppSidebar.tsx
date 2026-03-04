@@ -1,13 +1,13 @@
 // hooks
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 // icons
 import {
   Brackets,
+  Calendar1,
+  CalendarClock,
+  CalendarDays,
   ChevronsRight,
-  ListTodo,
-  StickyNote,
   User2,
 } from "lucide-react";
 
@@ -32,19 +32,24 @@ const menu = [
   },
   {
     name: "Today",
-    url: "/projects",
-    icon: ListTodo,
+    url: "/today",
+    icon: Calendar1,
   },
-
   {
-    name: "Sticky Wall",
-    url: "/projects",
-    icon: StickyNote,
+    name: "Tomorrow",
+    url: "/tomorrow",
+    icon: CalendarClock,
+  },
+  {
+    name: "Week",
+    url: "/week",
+    icon: CalendarDays,
   },
 ];
 
 export default function AppSidebar() {
-  const [activeMenu, setActiveMenu] = useState("Dashboard");
+  const location = useLocation();
+  const activeMenu = location.pathname;
 
   return (
     <Sidebar>
@@ -59,13 +64,10 @@ export default function AppSidebar() {
           <SidebarGroupLabel>Tasks</SidebarGroupLabel>
           <SidebarMenu>
             {menu.map((project) => (
-              <SidebarMenuItem
-                key={project.name}
-                onClick={() => setActiveMenu(project.name)}
-              >
+              <SidebarMenuItem key={project.name}>
                 <SidebarMenuButton
                   asChild
-                  isActive={activeMenu === project.name}
+                  isActive={activeMenu === project.url}
                 >
                   <NavLink to={project.url}>
                     <project.icon />

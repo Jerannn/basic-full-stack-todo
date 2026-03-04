@@ -1,14 +1,47 @@
 import db from "../config/db.js";
 
 export default class Task {
-  static async create({ user_id, title, description, category, dueDate }) {
+  static async create({ userId, title, description, category, dueDate }) {
     const result = await db.query(
       `INSERT INTO tasks (user_id, title, description, category, due_date)
         VALUES ($1, $2, $3, $4, $5)
         RETURNING id, user_id, title, description, category, due_date, created_at`,
-      [user_id, title, description, category, dueDate],
+      [userId, title, description, category, dueDate],
     );
 
     return result.rows[0];
+  }
+
+  static async getTodayTasks(userId) {
+    const result = await db.query(
+      `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
+      WHERE user_id = $1 AND due_date::date = CURRENT_DATE
+      ORDER BY created_at DESC`,
+      [userId],
+    );
+
+    return result.rows;
+  }
+
+  static async getTomorrowTasks(userId) {
+    const result = await db.query(
+      `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
+      WHERE user_id = $1 AND due_date::date = CURRENT_DATE + 1
+      ORDER BY created_at DESC`,
+      [userId],
+    );
+
+    return result.rows;
+  }
+
+  static async getWeekTasks(userId) {
+    const result = await db.query(
+      `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
+      WHERE user_id = $1 AND due_date::date BETWEEN CURRENT_DATE AND CURRENT_DATE + 7
+      ORDER BY created_at DESC`,
+      [userId],
+    );
+
+    return result.rows;
   }
 }

@@ -34,6 +34,7 @@ import TaskSheet from "./TaskSheet";
 import { formatToYMD } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import type { Task } from "../types";
+import TaskDetails from "./TaskDetails";
 
 type TaskItemProps = {
   task: Task;
@@ -107,7 +108,7 @@ export default function TaskItem({ task }: TaskItemProps) {
 
           {openSheet === "view" && (
             <TaskSheet title="Task" description="Review your task.">
-              <p>{task.description}</p>
+              <TaskDetails task={task} />
             </TaskSheet>
           )}
           {openSheet === "edit" && (

@@ -12,6 +12,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TodayPage from "./pages/TodayPage";
 import TomorrowPage from "./pages/TomorrowPage";
 import WeekPage from "./pages/WeekPage";
+import TasksPage from "./pages/TasksPage";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ function App() {
           >
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/tasks" element={<TasksPage />} />
             <Route path="/today" element={<TodayPage />} />
             <Route path="/tomorrow" element={<TomorrowPage />} />
             <Route path="/week" element={<WeekPage />} />

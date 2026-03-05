@@ -12,6 +12,31 @@ export default class Task {
     return result.rows[0];
   }
 
+  static async findAll(userId, offset, limit) {
+    const result = await db.query(
+      `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks
+      WHERE user_id = $1
+      ORDER BY created_at DESC
+      LIMIT $2 OFFSET $3
+      `,
+      [userId, limit, offset],
+    );
+
+    return result.rows;
+  }
+
+  static async getCount(userId) {
+    const result = await db.query(
+      `
+      SELECT COUNT(*)
+      FROM tasks
+      WHERE user_id = $1`,
+      [userId],
+    );
+
+    return Number(result.rows[0].count);
+  }
+
   static async getTodayTasks(userId, startDate, endDate) {
     const result = await db.query(
       `SELECT id, user_id, title, description, category, due_date, created_at FROM tasks

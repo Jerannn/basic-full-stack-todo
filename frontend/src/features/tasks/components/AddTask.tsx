@@ -37,7 +37,6 @@ export default function AddTask() {
   } = useForm<CreateTaskInput>();
 
   const onSubmit = async (data: CreateTaskInput) => {
-    console.log(data);
     const result = await mutateAsync(data);
     if (result.status === "success") {
       reset();

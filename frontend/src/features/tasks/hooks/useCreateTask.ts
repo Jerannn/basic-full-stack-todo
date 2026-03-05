@@ -1,16 +1,11 @@
 import { createTask } from "@/services/api/tasks";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { CreateTaskInput, Task } from "../types";
-import type { ApiResponse } from "@/types/api-types";
+import type { CreateTaskInput } from "../types";
 
 export default function useCreateTask() {
   const queryClient = useQueryClient();
-  const { isPending: isCreating, mutateAsync } = useMutation<
-    ApiResponse<{ task: Task }>,
-    Error,
-    CreateTaskInput
-  >({
-    mutationFn: (formdata) => createTask(formdata),
+  const { isPending: isCreating, mutateAsync } = useMutation({
+    mutationFn: (formdata: CreateTaskInput) => createTask(formdata),
     onSuccess: () => {
       queryClient.invalidateQueries({
         predicate: (query) =>

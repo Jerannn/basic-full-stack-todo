@@ -14,3 +14,17 @@ export type Task = {
   due_date: string;
   created_at: string;
 };
+
+export type Pagination = {
+  totalPage: number;
+};
+
+export type Params = {
+  page: number;
+  limit: number;
+};
+
+export type TasksResponse = {
+  tasks: Task[];
+  pagination?: Pagination;
+};

@@ -8,6 +8,7 @@ import {
   CalendarClock,
   CalendarDays,
   ChevronsRight,
+  ListTodo,
   User2,
 } from "lucide-react";
 
@@ -29,6 +30,11 @@ const menu = [
     name: "Dashboard",
     url: "/dashboard",
     icon: ChevronsRight,
+  },
+  {
+    name: "Tasks",
+    url: "/tasks",
+    icon: ListTodo,
   },
   {
     name: "Today",
